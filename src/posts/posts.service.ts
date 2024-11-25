@@ -10,7 +10,14 @@ export class PostsService {
 
     
 
-    getPosts(): Promise<Post[]> {
+    async getPosts(): Promise<Post[]> {
         return this.postModel.find().exec();
     }
+
+    async createPost(post: Post): Promise<Post> {
+        const newPost = new this.postModel(post);
+        return newPost.save();
+    }
+
+    
 }
