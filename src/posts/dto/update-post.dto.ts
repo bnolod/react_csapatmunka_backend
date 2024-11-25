@@ -1,5 +1,5 @@
 
-export class CreatePostDto {
+export class UpdatePostDto {
     user: string;
     title: string;
     content: string;

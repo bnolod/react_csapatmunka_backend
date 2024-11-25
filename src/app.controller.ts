@@ -30,4 +30,10 @@ export class AppController {
       image: 'image.jpg',
     });
   }
+
+  @Get('post/:id')
+  getPost(): Promise<any> {
+    return this.postsService.getPostById('5f5b9e3e3f4b0d0f1c3f8d8d');
+  }
+
 }

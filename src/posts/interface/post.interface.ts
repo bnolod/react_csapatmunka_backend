@@ -7,4 +7,5 @@ export interface Post {
     updated_at: Date;
     isActive: boolean;
     image: string;
+    _id: string;
     }
