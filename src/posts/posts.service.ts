@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
+import { Connection, Model } from 'mongoose';
+import { Post } from './interface/post.interface';
 
 @Injectable()
 export class PostsService {
 
-    constructor(@InjectConnection() private connection : Connection) {}
+    constructor(@InjectModel('Post') private readonly postModel: Model<Post>) {}
 
-    getPosts(): string {
-        return 'This will return all posts';
+    
+
+    getPosts(): Promise<Post[]> {
+        return this.postModel.find().exec();
     }
 }

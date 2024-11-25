@@ -14,7 +14,7 @@ export class AppController {
   }
 
   @Get('posts')
-  getPosts(): string {
+  getPosts(): Promise<any> {
     return this.postsService.getPosts();
   }
 }
