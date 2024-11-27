@@ -75,9 +75,7 @@ export class PostsService {
         if (updatePostDto.content.length < 0 || updatePostDto.content.length > 200) {
             throw new BadRequestException('A tartalomnak 0 és 200 karakter között kell lennie');
         }
-        if (!updatePostDto.image.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g)) {
-            throw new BadRequestException('Helytelen kép URL');
-        }
+       
 
         return this.postModel.findByIdAndUpdate(postId, updatePostDto, { new: true });
 
