@@ -1,6 +1,8 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PostsService } from './posts/posts.service';
+import { CreatePostDto } from './posts/dto/create-post.dto';
+import { UpdatePostDto } from './posts/dto/update-post.dto';
 
 @Controller()
 export class AppController {
@@ -19,21 +21,29 @@ export class AppController {
   }
 
   @Post('posts')
-  createPost(): Promise<any> {
-    return this.postsService.createPost({
-      user: 'John Doe',
-      title: 'Hello World',
-      content: 'This is a post',
-      created_at: new Date(),
-      updated_at: new Date(),
-      isActive: true,
-      image: 'image.jpg',
-    });
+  createPost(@Body() createPostDto: CreatePostDto, @Res() res): Promise<any> {
+    return this.postsService.createPost(createPostDto, res);
   }
 
   @Get('post/:id')
-  getPost(): Promise<any> {
-    return this.postsService.getPostById('5f5b9e3e3f4b0d0f1c3f8d8d');
+  getPost(@Param("id") id): Promise<any> {
+    return this.postsService.getPostById(id);
+  }
+  @Delete('post/:id')
+  deletePost(@Param("id") id): Promise<any> {
+    return this.postsService.deletePostById(id);
+  }
+  @Patch('post/:id')
+  updatePost(@Param("id") id, @Body() updatePostDto: UpdatePostDto, @Res() res): Promise<any> {
+    return this.postsService.updatePostById(id, updatePostDto, res);
   }
 
+  @Get('posts/page')
+  getPostsPaginate(@Query("page") page, @Query("limit") limit): Promise<any> {
+    return this.postsService.getPostsPaginate(page, limit);
+  }
+  @Get('posts/search')
+  searchPosts(@Query("search") search): Promise<any> {
+    return this.postsService.searchByAnyField(search);
+  }
 }
