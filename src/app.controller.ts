@@ -10,11 +10,6 @@ export class AppController {
     private readonly postsService: PostsService
   ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Get('posts')
   getPosts(): Promise<any> {
     return this.postsService.getPosts();
@@ -25,10 +20,6 @@ export class AppController {
     return this.postsService.createPost(createPostDto, res);
   }
 
-  @Get('post/:id')
-  getPost(@Param("id") id): Promise<any> {
-    return this.postsService.getPostById(id);
-  }
   @Delete('post/:id')
   deletePost(@Param("id") id): Promise<any> {
     return this.postsService.deletePostById(id);
